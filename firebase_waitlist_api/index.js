@@ -33,7 +33,21 @@ function getNumberInQueue(callback) {
     });
 }
 
-app.get('/api/newTicket', function (req, res) {
+app.post('/api/signup/:isDoctor/:username/:password/:email', function(req, res) {
+    firebase.database().ref('login/' + req.params.username).set({
+        isDoctor: req.params.isDoctor,
+        username: req.params.username,
+        password: req.params.password,
+        email: req.params.email
+    });
+});
+app.get('/api/login/:username/', function(req, res) {
+    firebase.database().ref('login/' + req.params.username).once('value').then((snapshot) => {
+        res.send(snapshot.val());
+    });
+});
+
+app.post('/api/newTicket', function (req, res) {
     firebase.database().ref('ticket_number').once('value').then((snapshot) => {
         var ticket_number = snapshot.val().ticket_number + 1;
         console.log(ticket_number);
@@ -42,7 +56,7 @@ app.get('/api/newTicket', function (req, res) {
     })
 });
 
-app.get('/api/insertValue/:dr/:age/:blood/:gender/:ethnicity/:bmi/:lod', function (req, res) {
+app.post('/api/insertValue/:dr/:age/:blood/:gender/:ethnicity/:bmi/:lod', function (req, res) {
     var data = {'dr': req.params.dr, 'age': req.params.age, 'blood': req.params.blood, 'gender': req.params.gender, 'ethnicity': req.params.ethnicity, 'bmi': req.params.bmi, 'lod': req.params.lod};
     firebase.database().ref('waitlist/' + ticketNumber).update({
         dr: data.dr,
@@ -59,7 +73,7 @@ app.get('/api/insertValue/:dr/:age/:blood/:gender/:ethnicity/:bmi/:lod', functio
 app.get('/api/getLineLength', (req, res) => {
     firebase.database().ref('waitlist/').once('value').then((snapshot) => {
         console.log(snapshot.val());
-        res.send(snapshot.val());
+        res.send(snapshot.val().size());
     });
 });
 
@@ -69,7 +83,7 @@ app.get('/api/getNextFourInLine', (req, res) => {
     });
 });
 
-app.post('/api/removeNumber', (req, res) => {
+app.post('/api/removeNumber/:removeNumber', (req, res) => {
     firebase.database().ref().once('value').then((snapshot) => {
 
     });
