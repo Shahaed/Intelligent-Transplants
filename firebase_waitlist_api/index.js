@@ -58,18 +58,9 @@ app.get('/api/login/:username/', function(req, res) {
 //     })
 // });
 
-app.post('/api/insertValue/:user/:dr/:age/:blood/:gender/:ethnicity/:bmi/:lod', function (req, res) {
-    var data = {'dr': req.params.dr, 'age': req.params.age, 'blood': req.params.blood, 'gender': req.params.gender, 'ethnicity': req.params.ethnicity, 'bmi': req.params.bmi, 'lod': req.params.lod};
-    firebase.database().ref('waitlist/' + req.params.user).set({
-        dr: data.dr,
-        age: data.age,
-        blood: data.blood,
-        gender: data.gender,
-        ethnicity: data.ethnicity,
-        bmi: data.bmi,
-        lod: data.bmi,
-        time: new Date().toISOString()
-    });
+app.post('/api/insertValue/:user/:dr/:age/:blood/:gender/:organ/:ethnicity/:bmi/:lod', function (req, res) {
+    var data = {'dr': req.params.dr, 'age': req.params.age, 'blood': req.params.blood, 'gender': req.params.gender, 'organ': req.params.organ, 'ethnicity': req.params.ethnicity, 'bmi': req.params.bmi, 'lod': req.params.lod, time: new Date().toISOString()};
+    firebase.database().ref('waitlist/' + req.params.user).set(data);
     res.sendStatus(200).send('Data scuccessfully received.');
 })
 
