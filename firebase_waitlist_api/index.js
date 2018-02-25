@@ -10,7 +10,9 @@ var firebase = require('firebase');
 firebase.initializeApp(config);
 var database = firebase.database();
 var express = require('express')
+var cors = require('cors')
 var app = express()
+app.use(cors())
 
 function setupData(ticketNumber) {
     firebase.database().ref('waitlist/' + ticketNumber).set({
