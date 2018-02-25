@@ -4,16 +4,18 @@ var system = require('system');
 var variable = [system.args[1], system.args[2], system.args[3]];
 console.log(variable);
 var variable_limit = [5, 20, 20];
-
+var loading = true;
 page.onInitialized = function() {
     console.log("page.onInitialized");
     printArgs.apply(this, arguments);
 };
 page.onLoadStarted = function() {
     console.log("page.onLoadStarted");
+    loading = true;
     printArgs.apply(this, arguments);
 };
 page.onLoadFinished = function() {
+    loading = true;
     console.log("page.onLoadFinished");
     printArgs.apply(this, arguments);
 };
@@ -29,14 +31,10 @@ page.onClosing = function() {
     console.log("page.onClosing");
     printArgs.apply(this, arguments);
 };
-
-// window.console.log(msg);
 page.onConsoleMessage = function(msg) {
     console.log(msg);
     printArgs.apply(this, arguments);
 };
-
-// window.alert(msg);
 page.onAlert = function(msg) {
     console.log('alert: ', msg);
     printArgs.apply(this, arguments);
@@ -65,22 +63,20 @@ function evaluate(page, func) {
     var fn = "function() { return (" + func.toString() + ").apply(this, " + JSON.stringify(args) + ");}";
     return page.evaluate(fn);
 }
-
-var steps = [
-  function() {
+function singleApp() {
     //Load Page
-    page.open("https://optn.transplant.hrsa.gov/data/view-data-reports/build-advanced/");
-  },
-  function() {
-    //change category (load)
-    page.evaluate(function(variable) {
-        var sel = document.querySelector('select#category');
-        sel.selectedIndex = variable[0];
-        var evt = document.createEvent("HTMLEvents");
-        evt.initEvent("change", false, true);
-        sel.dispatchEvent(evt);
-    }, variable);
-  },
+    page.open("https://optn.transplant.hrsa.gov/data/view-data-reports/build-advanced/", function(status) {
+        if(status === 'success') {
+            page.evaluate(function(variable) {
+                var sel = document.querySelector('select#category');
+                sel.selectedIndex = variable[0];
+                var evt = document.createEvent("HTMLEvents");
+                evt.initEvent("change", false, true);
+                sel.dispatchEvent(evt);
+            }, variable);
+        }
+    });
+}
   function() {
     //change col
     variable_limit = page.evaluate(function(variable) {
@@ -166,16 +162,4 @@ interval = setInterval(function() {
             }
         }
     }
-
-    // if(typeof steps[testindex] === "function") {
-    //     console.log("step " + (testindex + 1));
-    //     steps[testindex]();
-    //     testindex++;
-    // }
-
-    // if (typeof steps[testindex] != "function" ) {
-    //     console.log("test complete!");
-    //     phantom.exit();
-    // }
-
 }, 3000);
