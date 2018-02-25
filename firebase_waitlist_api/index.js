@@ -56,9 +56,9 @@ app.post('/api/newTicket', function (req, res) {
     })
 });
 
-app.post('/api/insertValue/:dr/:age/:blood/:gender/:ethnicity/:bmi/:lod', function (req, res) {
+app.post('/api/insertValue/:ticketNumber/:dr/:age/:blood/:gender/:ethnicity/:bmi/:lod', function (req, res) {
     var data = {'dr': req.params.dr, 'age': req.params.age, 'blood': req.params.blood, 'gender': req.params.gender, 'ethnicity': req.params.ethnicity, 'bmi': req.params.bmi, 'lod': req.params.lod};
-    firebase.database().ref('waitlist/' + ticketNumber).update({
+    firebase.database().ref('waitlist/' + req.params.ticketNumber).update({
         dr: data.dr,
         age: data.age,
         blood: data.blood,
