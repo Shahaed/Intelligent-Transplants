@@ -60,7 +60,7 @@ app.get('/api/login/:username/', function(req, res) {
 
 app.post('/api/insertValue/:user/:dr/:age/:blood/:gender/:ethnicity/:bmi/:lod', function (req, res) {
     var data = {'dr': req.params.dr, 'age': req.params.age, 'blood': req.params.blood, 'gender': req.params.gender, 'ethnicity': req.params.ethnicity, 'bmi': req.params.bmi, 'lod': req.params.lod};
-    firebase.database().ref('waitlist/' + req.params.user).update({
+    firebase.database().ref('waitlist/' + req.params.user).set({
         dr: data.dr,
         age: data.age,
         blood: data.blood,
