@@ -29,11 +29,11 @@ function setupData(ticketNumber) {
     firebase.database().ref('ticket_number').update({ticket_number: num });
 }
 
-function getNumberInQueue(callback) {
-    firebase.database().ref().once('value').then((snapshot) => {
-        callback(snapshot);
-    });
-}
+// function getNumberInQueue(callback) {
+//     firebase.database().ref().once('value').then((snapshot) => {
+//         callback(snapshot);
+//     });
+// }
 
 app.post('/api/signup/:isDoctor/:username/:password/:email', function(req, res) {
     firebase.database().ref('login/' + req.params.username).set({
@@ -49,18 +49,18 @@ app.get('/api/login/:username/', function(req, res) {
     });
 });
 
-app.post('/api/newTicket', function (req, res) {
-    firebase.database().ref('ticket_number').once('value').then((snapshot) => {
-        var ticket_number = snapshot.val().ticket_number + 1;
-        console.log(ticket_number);
-        setupData(ticket_number);
-        res.send(ticket_number + '');
-    })
-});
+// app.post('/api/newTicket', function (req, res) {
+//     firebase.database().ref('ticket_number').once('value').then((snapshot) => {
+//         var ticket_number = snapshot.val().ticket_number + 1;
+//         console.log(ticket_number);
+//         setupData(ticket_number);
+//         res.send(ticket_number + '');
+//     })
+// });
 
-app.post('/api/insertValue/:ticketNumber/:dr/:age/:blood/:gender/:ethnicity/:bmi/:lod', function (req, res) {
+app.post('/api/insertValue/:user/:dr/:age/:blood/:gender/:ethnicity/:bmi/:lod', function (req, res) {
     var data = {'dr': req.params.dr, 'age': req.params.age, 'blood': req.params.blood, 'gender': req.params.gender, 'ethnicity': req.params.ethnicity, 'bmi': req.params.bmi, 'lod': req.params.lod};
-    firebase.database().ref('waitlist/' + req.params.ticketNumber).update({
+    firebase.database().ref('waitlist/' + req.params.user).update({
         dr: data.dr,
         age: data.age,
         blood: data.blood,
@@ -70,7 +70,15 @@ app.post('/api/insertValue/:ticketNumber/:dr/:age/:blood/:gender/:ethnicity/:bmi
         lod: data.bmi,
         time: new Date().toISOString()
     });
+    res.sendStatus(200).send('Data scuccessfully received.');
 })
+
+app.get('/api/getAll', (req, res) => {
+    firebase.database().ref('waitlist').once('value').then((snapshot) => {
+        console.log(snapshot.val());
+        res.send(snapshot.val());
+    });
+});
 
 app.get('/api/getLineLength', (req, res) => {
     firebase.database().ref('waitlist/').once('value').then((snapshot) => {
