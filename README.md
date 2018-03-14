@@ -12,31 +12,3 @@ Our product is centered around historic data related to organ transplants, and t
 
 ## Accomplishments that we're proud of
 Working together to solve real world problems. 
-
-#Prizes
-
-##Information overload 
-We use a deep learning model to organize transplant data to make it univerally accesible and useful for transplant clinicians. 
-
-##Head in the clouds 
-We use the google cloud platform, aws, and firebase to deploy and deliver deep learning predictions.
-
-##Hard core, Soft ware 
-We used tensorflow to build our deep learning model to help bring the potential of machine learning to human health. 
-
-##Data Storage and Migration 
-We improved transplant data analytics.
-
-##Fund Your Dreamscape 
-We used the tensorflow library to serve analytics to doctors.
-
-##Go Further 
-We connect donors with recipients and allow organs to have an easier trip to the recieving hospital with confidence that it will get to its new home.
-
-##Walking Your Dog Food to Market
-Our open source project allows the world to collaborate on saving transplant patients.
-
-##Making Sense Out of Complicated Clinical Information 
-We have an open source healthcare analytics project that allows our deep learning model to improve with new and better transplant data. This allows hospitals to use their own EMR data on our open source project.
-
-
