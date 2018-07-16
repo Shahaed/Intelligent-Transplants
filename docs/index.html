@@ -1,0 +1,198 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="row" style="margin-top: 60px;">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div style="margin-top: 20px; margin-bottom:20px;" class="text-center">
+                <h1>Intelligent Transplants</h1>
+            </div>
+            <hr>
+            <br>
+
+            <div style="margin-top: 20px; margin-bottom:20px; font-family: Georgia, 'Times New Roman', Times, serif;" id="Background">
+                    <h3>Background</h3>
+                    <p>This project was initially prototyped at HackIllinois2018 (<a href="https://devpost.com/software/smart-transplant">Devpost Page</a>)
+                        with lead developers Shahaed Hasan, Jiyu Han, and Paul Ruales. Developers Kevin Blicharski, Akhil Kandimalla, Madeline Silva, Andrew Ehler assisted in full stack development for the initial project.
+                        The project won Google's <span style="font-style: italic">Head in the Clouds</span> and IMO's <span style="font-style: italic">Making Sense out of Complicated Clinical Information</span> prizes.
+                        The deep learning portions are being further explored by Shahaed Hasan and Jiyu Han which are presented in this preliminary report.
+                    </p>
+            </div>
+            <hr>
+            <div style="margin-top: 20px; margin-bottom:20px;" id="Abstract">
+                <h3>Abstract</h3>
+                <p style="font-style: italic">Everyday twenty-two people die waiting for a transplant. Around 65% of organs are rejected by centers while 10%
+                    of accepted organs are not used in transplants. Rejections occur due to low confidence from doctors about
+                    compatibility, time spent waiting for decisions being made, and human error. This $34B industry is missing
+                    many chances at saving lives and money. UNOS stores data for the thousands of transplants that occur and
+                    current medical charts have hundreds of data points on patients. This seemed like a perfect opportunity to
+                    let machines solve this problem.</p>
+            </div>
+
+            <div style="margin-top: 20px; margin-bottom:20px;" id="project-idea">
+                <h3>Introduction</h3>
+                <br>
+                <p>
+                        Predicting the viability of organ transplants is a very complicated decision that requires many different levels.
+                        For example, once a hospital has a transplantable organ they must inform the Organ Procurement Organization (OPO).
+                        The OPO then must certify the authorization of the organ, afterwards which the matching process begins.
+                        The OPO will then contact the Organ Procurement and Transplant Network (OPTN) who will find a viable recipient.
+                        This next step involves many call to a multitude of hospitals where an organ surgeon must decide if the organ is fit enough for transplant.
+                        In short, there are many steps where human error can cost a life.
+                </p>
+            </div>
+            <div style="margin-top: 20px; margin-bottom:20px;" id="dataset-details">
+                <h3>Methods And Results</h3>
+                <p>
+                        The dataset obtained contained 15000 unidentifiable kidney transplant information. Most preprocessing of the data was
+                        done by the source and we further processed it using
+                        <i style='mso-bidi-font-style:normal'>data_preprocessing.py</i>. The dataset contained demographic information such as donor age, weight, ethnicity, in
+                        addition to clinical data such as dialysis history. The data was processed by the source to the shape of 1 dimension,
+                        so each transplant included 26 numerical values for each category. It should be noted the raw data had information
+                        in more complicated shapes (e.g. dialysis shape (3,2)) and in the future, a neural network might find trends in the
+                        more complicated data.
+                </p>
+                <br>
+                <p>
+                        The success/failure of a transplant is a complicated statistic. Follow ups are done in the months and years after a transplant
+                        and rejection can happen at any time. Transplant’s may fail due to complications, unrelated illnesses, or surgical
+                        side effects. A common method of determining transplant success in kidney transplants is by grant failure. Graft
+                        failure is a significant complication following allogeneic hematopoietic cell transplantation (AHCT) that leads to
+                        rejection of the organ. We determined the transplant a success if a grant failure did not occur within 1 year. This
+                        is our
+                        <b style='mso-bidi-font-weight:
+                normal'>gf</b> value in Appendix A.
+
+                </p>
+                <div>
+                        <p class=MsoNormal>
+                                <u>
+                                    <span style='font-family:"Helvetica Neue";mso-fareast-font-family:
+                            "Times New Roman";mso-bidi-font-family:"Times New Roman";color:#44546A;
+                            mso-themecolor:text2'>Deep Learning with a Neural Network
+                                        <o:p></o:p>
+                                    </span>
+                                </u>
+                            </p>
+
+                            <p class=MsoNormal>
+                                <span>We used
+                                    <span class=SpellE>Keras</span> with a linear stack of layers using the sequential model. The structure of out model is below. At the end of training we had 1,807,053 trained weights
+                                    and accuracy above 90%. It took around 20 epocs to near a converging value for the loss. Our model could be further analyzed using ROC curves. 
+                                </span>
+                            </p>
+                </div>
+                <div class="card"style="width: 18rem; margin: auto">
+                        <img class="card-img-top" src="plot.png" alt="Card image cap">
+                        <div class="card-body">
+                            <p class="card-text">Model</p>
+                        </div>
+                </div>
+                <br>
+                <div class="row" style="margin: auto">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-3">
+                                <div class="card"style="width: 18rem;">
+                                        <img class="card-img-top" src="model_loss.png" alt="Card image cap">
+                                        <div class="card-body">
+                                            <p class="card-text">Model</p>
+                                        </div>
+                                </div>
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-3">
+                                <div class="card"style="width: 18rem;">
+                                        <img class="card-img-top" src="model_accuracy.png" alt="Card image cap">
+                                        <div class="card-body">
+                                            <p class="card-text">Model Accuracy</p>
+                                        </div>
+                                </div>
+                        </div>
+                        <div class="col-md-1"></div>
+                    </div>
+            </div>
+            <div style="margin-top: 20px; margin-bottom:20px;" id="conclusion">
+                    <h3>Discussion</h3>
+                    <p style="font-style: oblique; color: goldenrod">
+                        Discussion and analysis coming soon. At quick glance can see an overfitting of the data and the model "learning" too quick.
+                    </p>
+                </div>
+            <div style="margin-top: 20px; margin-bottom:20px;" id="software">
+                <h3>Technologies Used</h3>
+                <ul>
+                    <li>TensorFlow</li>
+                    <li>Google Cloud Platform</li>
+                    <li>Jupyter</li>
+                    <li>Keras</li>
+                    <li>Nvidia CUDA</li>
+                </ul>
+            </div>
+            <div style="margin-top: 20px; margin-bottom:20px;" id="papars-to-read">
+                <h3>Sources Referenced</h3>
+                <p>
+                    Dybowski, R., Gant, V., Weller, P., & Chang, R. (1996). Prediction of outcome in critically ill patients using artificial
+                    neural network synthesised by genetic algorithm.
+                    <em>The Lancet, 347(9009)</em>, 1146-1150.
+                    <br>
+                    <br> Yoo, K. D., Noh, J., Lee, H., Kim, D. K., Lim, C. S., Kim, Y. H., ... & Kim, Y. S. (2017). A Machine
+                    Learning Approach Using Survival Statistics to Predict Graft Survival in Kidney Transplant Recipients:
+                    A Multicenter Cohort Study.
+                    <em>Scientific reports</em>, 7(1), 8904.
+                    <br>
+                    <br> Reinaldo, F., Rahman, M. A., Alves, C. F., Malucelli, A., & Camacho, R. (2010, February). Machine Learning
+                    support for kidney transplantation decision making. In
+                    <em>Proceedings of the International Symposium on Biocomputing</em> (p. 48). ACM.
+                    <br>
+                    <br>
+
+                </p>
+            </div>
+            <div style="margin-top: 20px; margin-bottom:20px;" id="teammember">
+                <h3>Authors</h3>
+                <br>
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-3">
+                        <div class="thumbnail">
+                            <img src="https://avatars.githubusercontent.com/u/4543437?v=3?height=180&width=180" width="300" height="300">
+                            <div class="caption text-center">
+                                Shahaed Hasan
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2"></div>
+                    <div class="col-md-3">
+                        <div class="thumbnail">
+                            <img src="https://avatars2.githubusercontent.com/u/17463046?s=400&v=4"
+                                width="300" height="300">
+                            <div class="caption text-center">
+                                Thomas Han
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-1"></div>
+                </div>
+            </div>
+            <footer class="text-center" style="margin-bottom:30px;">
+                <hr>
+                <p>Proposed and coded with love from Thomas and Shahaed.</p>
+            </footer>
+        </div>
+        <div class="col-md-2"></div>
+
+    </div>
+</body>
+
+</html>
