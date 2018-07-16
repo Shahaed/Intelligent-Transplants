@@ -1,3 +1,4 @@
+Deep Learning Report (https://shahaed.me/Intelligent-Transplants/)
 ## Inspiration
 Everyday twenty-two people die waiting for a transplant. Around 65% of organs are rejected by centers while 10% of accepted organs are not used in transplants. Rejections occur due to low confidence from doctors about compatibility, time spent waiting for decisions being made, and human error. This $34B industry is missing many chances at saving lives and money. UNOS stores data for the thousands of transplants that occur and current medical charts have hundreds of data points on patients. This seemed like a perfect opportunity to let machines solve this problem.  
 
